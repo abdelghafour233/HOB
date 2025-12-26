@@ -10,32 +10,35 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+      :root {
+        --primary: #10b981;
+        --bg-dark: #020202;
+      }
       body {
         font-family: 'Cairo', sans-serif;
-        background-color: #050505;
-        color: #f8fafc;
+        background-color: var(--bg-dark);
+        color: #e2e8f0;
+        margin: 0;
       }
-      .bg-dark-900 { background-color: #050505; }
-      .bg-dark-800 { background-color: #0a0a0a; }
-      .bg-dark-700 { background-color: #121212; }
-      
-      .text-emerald-glow {
-        color: #10b981;
-        text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+      .neon-glow:hover {
+        box-shadow: 0 0 25px rgba(16, 185, 129, 0.4);
+        border-color: rgba(16, 185, 129, 0.6) !important;
       }
-      
-      .btn-glow:hover {
-        box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
-        transform: translateY(-2px);
+      .glass-effect {
+        background: rgba(2, 2, 2, 0.8) !important;
+        backdrop-filter: blur(15px) !important;
+        -webkit-backdrop-filter: blur(15px) !important;
       }
-      
-      ::-webkit-scrollbar { width: 6px; }
-      ::-webkit-scrollbar-track { background: #050505; }
+      .text-neon {
+        color: var(--primary);
+        text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+      }
+      .bg-neon-gradient {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      }
+      ::-webkit-scrollbar { width: 5px; }
+      ::-webkit-scrollbar-track { background: #020202; }
       ::-webkit-scrollbar-thumb { background: #10b981; border-radius: 10px; }
-      
-      .card-gradient {
-        background: linear-gradient(145deg, #0a0a0a, #121212);
-      }
     </style>
     <script>
       tailwind.config = {
@@ -43,20 +46,16 @@
         theme: {
           extend: {
             colors: {
-              primary: {
-                DEFAULT: '#10b981',
-                dark: '#059669',
-                light: '#34d399'
-              },
+              primary: '#10b981',
               dark: {
+                950: '#020202',
                 900: '#050505',
                 800: '#0a0a0a',
-                700: '#121212',
-                600: '#1a1a1a'
-              },
-            },
-          },
-        },
+                700: '#111111'
+              }
+            }
+          }
+        }
       }
     </script>
     <script type="importmap">
@@ -71,7 +70,7 @@
     }
     </script>
   </head>
-  <body class="bg-dark-900 text-slate-100 transition-colors duration-300">
+  <body class="bg-dark-950 text-slate-200">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>
