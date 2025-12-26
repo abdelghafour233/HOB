@@ -1,12 +1,12 @@
 
-import { Post, SiteSettings, AdConfig } from '../types';
+import { Post, SiteSettings } from '../types';
 import { INITIAL_POSTS, INITIAL_SETTINGS } from '../constants';
 
+// مفاتيح جديدة كلياً لضمان عدم تداخل البيانات القديمة
 const KEYS = {
-  POSTS: 'abdou_web_posts',
-  SETTINGS: 'abdou_web_settings',
-  ADS: 'abdou_web_ads',
-  AUTH: 'abdou_web_auth',
+  POSTS: 'abdou_v3_posts',
+  SETTINGS: 'abdou_v3_settings',
+  AUTH: 'abdou_v3_auth'
 };
 
 export const storage = {
@@ -24,25 +24,24 @@ export const storage = {
   saveSettings: (settings: SiteSettings) => {
     localStorage.setItem(KEYS.SETTINGS, JSON.stringify(settings));
   },
-  resetDatabase: () => {
-    localStorage.removeItem(KEYS.POSTS);
-    localStorage.removeItem(KEYS.SETTINGS);
-    localStorage.removeItem(KEYS.ADS);
-    // نترك الـ Auth لكي لا يخرج المستخدم من لوحة التحكم فوراً، أو يمكن مسحه أيضاً لضمان نظافة كاملة
-    window.location.reload();
-  },
   login: (password: string): boolean => {
     const settings = storage.getSettings();
-    const isValid = password === settings.adminPassword;
-    if (isValid) {
+    if (password === (settings.adminPassword || 'admin')) {
       sessionStorage.setItem(KEYS.AUTH, 'true');
+      return true;
     }
-    return isValid;
+    return false;
   },
   isLoggedIn: (): boolean => {
     return sessionStorage.getItem(KEYS.AUTH) === 'true';
   },
   logout: () => {
     sessionStorage.removeItem(KEYS.AUTH);
+    window.location.reload();
+  },
+  hardReset: () => {
+    localStorage.clear();
+    sessionStorage.clear();
+    window.location.href = '/';
   }
 };
