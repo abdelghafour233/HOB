@@ -24,6 +24,13 @@ export const storage = {
   saveSettings: (settings: SiteSettings) => {
     localStorage.setItem(KEYS.SETTINGS, JSON.stringify(settings));
   },
+  resetDatabase: () => {
+    localStorage.removeItem(KEYS.POSTS);
+    localStorage.removeItem(KEYS.SETTINGS);
+    localStorage.removeItem(KEYS.ADS);
+    // نترك الـ Auth لكي لا يخرج المستخدم من لوحة التحكم فوراً، أو يمكن مسحه أيضاً لضمان نظافة كاملة
+    window.location.reload();
+  },
   login: (password: string): boolean => {
     const settings = storage.getSettings();
     const isValid = password === settings.adminPassword;
